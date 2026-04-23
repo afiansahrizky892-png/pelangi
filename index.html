@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Minum Pelangi | Kesegaran Alami Ungaran</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink-pekat: #d8127c;
+            --pink-kalem: #fff0f5; 
+            --blue: #1e3a8a;
+            --dark: #2d3436;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--pink-kalem);
+            scroll-behavior: smooth;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* --- NAV --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 45px;
+            height: auto;
+        }
+
+        .logo h2 {
+            color: var(--pink-pekat);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 22px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 13px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        nav a:hover { color: var(--pink-pekat); }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            margin-top: -75px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active { opacity: 1; }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            text-align: center;
+            width: 90%;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(35px, 6vw, 65px);
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .btn {
+            padding: 16px 40px;
+            background: var(--pink-pekat);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.4s;
+            text-transform: uppercase;
+        }
+
+        /* --- SECTIONS --- */
+        .section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 100px 20px;
+        }
+
+        .section h2 {
+            color: var(--pink-pekat);
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        /* --- TENTANG KAMI --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            background: #fff;
+            padding: 40px;
+            border-radius: 30px;
+        }
+
+        .about-photos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .about-photos img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        /* --- VISI MISI --- */
+        .vision-mission-container {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .vm-card {
+            background: #fff;
+            padding: 35px;
+            border-radius: 25px;
+            border: 1px solid #fee;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+        }
+
+        .vm-card h3 {
+            color: var(--pink-pekat);
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-left: 5px solid var(--pink-pekat);
+            padding-left: 15px;
+            text-transform: uppercase;
+        }
+
+        .misi-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .misi-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            font-size: 14.5px;
+            color: var(--dark);
+        }
+
+        .misi-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--pink-pekat);
+            font-weight: bold;
+        }
+
+        /* --- PRODUK --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #fee;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-img-box {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            background: #fff;
+        }
+
+        .product-img-box img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .card-body { 
+            padding: 20px; 
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .card-body h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .product-info {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .highlight { 
+            color: var(--pink-pekat); 
+            font-weight: 700; 
+            font-size: 20px; 
+            display: block; 
+        }
+
+        /* --- SEWA --- */
+        .accordion-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--pink-pekat);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #fffafa;
+        }
+
+        .spec-list {
+            list-style: none;
+            padding: 15px;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .spec-list li {
+            margin-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .spec-list b { color: var(--pink-pekat); }
+
+        /* --- KONTAK --- */
+        .contact-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--dark);
+            border: 1px solid #fee;
+            transition: 0.3s;
+        }
+
+        .contact-card:hover { background: var(--pink-pekat); color: #fff; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--blue);
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        /* --- WA FLOATING --- */
+        .wa-float-right {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 2000;
+            transition: 0.3s;
+        }
+
+        .wa-float-right:hover { transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .about-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="LOGO PELANGI.jfif" alt="Logo">
+            <h2>Pelangi</h2>
+        </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#tentang">Tentang Kami</a></li>
+            <li><a href="#produk">Produk</a></li>
+            <li><a href="#sewa">Sewa</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="slide active" style="background-image:url('foto tampak depan pelangi.png')"></div>
+        <div class="slide" style="background-image:url('foto promosi.png')"></div>
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1>Kesegaran Alami Ungaran</h1>
+            <p>Membawa kebaikan air pegunungan untuk kesehatan keluarga Indonesia.</p>
+            <br>
+            <button class="btn" onclick="scrollToSection('produk')">Eksplorasi Produk</button>
+        </div>
+    </section>
+
+    <section class="section" id="tentang">
+        <h2>Tentang Kami</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p><strong>CV. Tirta Makmur</strong> merupakan produsen Air Minum Dalam Kemasan (AMDK) merek <strong>Pelangi</strong> yang telah berdiri sejak tahun 2003 di Ungaran. Didirikan oleh Bapak Jayadi Makmur dan kini di bawah kepemimpinan Bapak Maxkent, perusahaan terus berinovasi dalam mengolah sumber mata air murni pegunungan Ungaran menggunakan teknologi modern. Sebagai anggota ASPADIN sejak 2005, kami berkomitmen menjaga dedikasi tinggi pada kemurnian dan higienitas untuk menjamin setiap tetes air Pelangi memenuhi standar keamanan pangan nasional demi kesehatan keluarga Indonesia.</p>
+            </div>
+            <div class="about-photos">
+                <img src="foto gunung.png" alt="gunung">
+                <img src="SUMBER.jpg" alt="Sumber air">
+                <img src="foto karyawan.png" alt="Tim">
+                <img src="filter air.jpg" alt="filter">
+            </div>
+        </div>
+
+        <div class="vision-mission-container">
+            <div class="vm-card">
+                <h3>Visi</h3>
+                <p>Menjadi brand minuman kemasan yang paling dicintai di Indonesia, yang kehadirannya diperlukan untuk memenuhi persyaratan kesehatan. Menjadikan air kehidupan sejati untuk komunitas dan negara dengan menjadi perusahaan yang berbarokah dan hidup untuk mencintai dengan semangat <b>“Man Jadda Wajada”</b>.</p>
+            </div>
+            <div class="vm-card">
+                <h3>Misi</h3>
+                <p style="font-weight: 600; margin-bottom: 10px;">Dengan Cinta sejati dari Tuhan kita dimampukan untuk:</p>
+                <ul class="misi-list">
+                    <li>Melayani manusia dengan excellence dan integritas</li>
+                    <li>Melayani dengan ketulusan dan keikhlasan</li>
+                    <li>Mencintai pengetahuan supaya dapat memberikan pelayanan prima yang unggul</li>
+                    <li>Mengembangkan rasa cinta dalam menjalani bisnis ini selayaknya sebuah ibadah kepada Tuhan</li>
+                    <li>Menyediakan air minum dalam kemasan yang memenuhi persyaratan sesuai standar yang ditentukan</li>
+                    <li>Memberikan pelayanan terbaik kepada pelanggan</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="produk">
+        <h2>Varian Produk</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="product-img-box"><img src="cup 120  ml new.jfif"></div>
+                <div class="card-body">
+                    <h3>Cup 120 ml</h3>
+                    <span class="product-info">Isi 48 Cup / Karton</span>
+                    <span class="highlight">Rp27.500</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="product-img-box"><img src="cup 200 ml new.jfif"></div>
+                <div class="card-body">
+                    <h3>Cup 200 ml</h3>
+                    <span class="product-info">Isi 48 Cup / Karton</span>
+                    <span class="highlight">Rp29.000</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="product-img-box"><img src="gemoy 220 ml new.jfif"></div>
+                <div class="card-body">
+                    <h3>Botol 220 ml</h3>
+                    <span class="product-info">Isi 24 Botol / Karton</span>
+                    <span class="highlight">Rp28.500</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="product-img-box"><img src="botol 330 ml new.jfif"></div>
+                <div class="card-body">
+                    <h3>Botol 330 ml</h3>
+                    <span class="product-info">Isi 24 Botol / Karton</span>
+                    <span class="highlight">Rp39.000</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="product-img-box"><img src="botol 500 ml new.jfif"></div>
+                <div class="card-body">
+                    <h3>Botol 500 ml</h3>
+                    <span class="product-info">Isi 24 Botol / Karton</span>
+                    <span class="highlight">Rp42.000</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="product-img-box"><img src="botol 1500 ml new.jfif"></div>
+                <div class="card-body">
+                    <h3>Botol 1500 ml</h3>
+                    <span class="product-info">Isi 12 Botol / Karton</span>
+                    <span class="highlight">Rp43.000</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="product-img-box"><img src="galon 19 l.jpg"></div>
+                <div class="card-body">
+                    <h3>Galon 19 L</h3>
+                    <span class="product-info">Isi 1 Galon</span>
+                    <span class="highlight">Rp19.000</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="sewa">
+        <h2>Layanan Sewa</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="product-img-box"><img src="shocase.webp"></div>
+                <div class="card-body">
+                    <h3>Sewa Dispenser</h3>
+                    <span class="highlight">Rp50.000/bln</span>
+                    <button class="accordion-btn">Spesifikasi <span>+</span></button>
+                    <div class="panel">
+                        <ul class="spec-list">
+                            <li><b>Berat / Dimensi:</b> 19 kg / 955 x 320 x 325 mm</li>
+                            <li><b>Kapasitas Tangki:</b> Panas 1,8 L / Dingin 3,4 L</li>
+                            <li><b>Suhu:</b> Panas 77-85°C / Dingin 4-12°C</li>
+                            <li><b>Sumber Daya:</b> AC 220V / 50Hz</li>
+                            <li><b>Daya:</b> 250W (Heater) & 75W (Cooler)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="product-img-box"><img src="maspion_showcase-maspion-usg-180-nd-kulkas-display-kaca-minuman-usg-180nd_full03.webp"></div>
+                <div class="card-body">
+                    <h3>Sewa Showcase</h3>
+                    <span class="highlight">Rp100.000/bln</span>
+                    <button class="accordion-btn">Spesifikasi <span>+</span></button>
+                    <div class="panel">
+                        <ul class="spec-list">
+                            <li><b>Kapasitas:</b> 180 Liter</li>
+                            <li><b>Lampu:</b> LED Interior</li>
+                            <li><b>Dilengkapi:</b> Kunci Pengaman</li>
+                            <li><b>Voltage:</b> 220 V / 50 Hz</li>
+                            <li><b>Power:</b> 145 Watt</li>
+                            <li><b>Refrigerant:</b> R-134a / 130 Gr</li>
+                            <li><b>Berat:</b> 43 Kg</li>
+                            <li><b>Dimensi:</b> 53.5 x 44.5 x 142 cm</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="kontak">
+        <h2>Temukan Kami Di</h2>
+        <div class="grid">
+            <a href="https://wa.me/628112761001" class="contact-card" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="40" alt="WA">
+                <h4>WhatsApp</h4>
+                <p>0811-2761-001</p>
+            </a>
+            <a href="https://instagram.com/airminumpelangi" class="contact-card" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" width="40" alt="IG">
+                <h4>Instagram</h4>
+                <p>@airminumpelangi</p>
+            </a>
+            <a href="https://linktr.ee/airminumpelangi" class="contact-card" target="_blank">
+                <img src="link logo.png" width="40" alt="Link">
+                <h4>Temukan Kami</h4>
+                <p>Linktree</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <h3>CV Tirta Makmur</h3>
+        <p>© 2026 Pelangi AMDK - Kesegaran Alami Ungaran</p>
+    </footer>
+
+    <a href="https://wa.me/628112761001" class="wa-float-right" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30" alt="WA">
+    </a>
+
+    <script>
+        // Hero Slider
+        let slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        // Accordion
+        document.querySelectorAll('.accordion-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const panel = button.nextElementSibling;
+                const icon = button.querySelector('span');
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                    icon.innerText = "+";
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                    icon.innerText = "-";
+                }
+            });
+        });
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+        }
+    </script>
+</body>
+</html>
